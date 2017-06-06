@@ -64,8 +64,14 @@ public class DiffController {
 		
 		for (LinePojo p : lineDiffs) {
 			LineDelimitedPojo l = (LineDelimitedPojo) p;
-			String lineString = formatLinePojo(equalsTemplate, insertTemplate, updateTemplate, deleteTemplate, l);
-			l.setDiffText(lineString);
+			try {
+				String lineString = formatLinePojo(equalsTemplate, insertTemplate, updateTemplate, deleteTemplate, l);
+				l.setDiffText(lineString);
+			} catch (Exception e) {
+				System.err.println("=================== Exception: " + e.getMessage());
+				System.err.println("Line Number: " + l.getLineNumber());
+				System.err.println("Original Line: " + l.getOriginalLine());
+			}
 		}
 		return lineDiffs;
 	}
